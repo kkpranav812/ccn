@@ -1,0 +1,198 @@
+1. Install Nmap
+Command:
+sudo apt-get update && sudo apt-get install nmap
+
+Explanation:
+Updates package list and installs Nmap on the Linux system.
+
+
+2. Ping Scan
+Command:
+nmap -sn google.com
+
+Explanation:
+Checks whether the target host is active without scanning ports.
+
+
+3. TCP SYN Scan
+Command:
+sudo nmap -sS 192.168.1.0/24
+
+Explanation:
+Performs a stealth TCP SYN scan to identify open ports in the subnet.
+
+
+4. Service Version Detection
+Command:
+nmap -sV localhost
+
+Explanation:
+Detects services running on open ports and identifies their versions.
+
+
+5. Operating System Detection
+Command:
+sudo nmap -O localhost
+
+Explanation:
+Uses TCP/IP fingerprinting to determine the operating system.
+
+
+6. Scan Active Hosts
+Command:
+nmap -sn 192.168.1.0/24
+
+Explanation:
+Finds all live hosts available in the network range.
+
+
+7. Scan Top 5 Common Ports
+Command:
+nmap --top-ports 5 google.com
+
+Explanation:
+Scans the five most commonly used ports on the target host.
+
+
+8. Find MAC Address
+Command:
+sudo nmap -sn 172.22.64.1
+
+Explanation:
+Displays MAC address and vendor details of the target device.
+
+
+9. Detect HTTP and HTTPS Services
+Command:
+nmap -p 80,443 google.com
+
+Explanation:
+Checks if web services HTTP and HTTPS are running.
+
+
+10. Check FTP Service
+Command:
+nmap -p 21 localhost
+
+Explanation:
+Scans FTP port 21 to determine if FTP service is active.
+
+
+11. Identify SSH Version
+Command:
+nmap -p 22 -sV localhost
+
+Explanation:
+Finds SSH service version running on port 22.
+
+
+12. Scan for Telnet Service
+Command:
+nmap -p 23 --open 192.168.1.0/24
+
+Explanation:
+Lists hosts with Telnet service enabled on port 23.
+
+
+13. Detect Operating System
+Command:
+sudo nmap -O localhost
+
+Explanation:
+Identifies OS details and kernel version of the target system.
+
+
+14. Detect SQL Services
+Command:
+nmap -p 1433,3306,5432 localhost
+
+Explanation:
+Checks for MS SQL, MySQL, and PostgreSQL database services.
+
+
+15. Check Remote Desktop Protocol
+Command:
+nmap -p 3389 localhost
+
+Explanation:
+Determines whether RDP service is enabled on the host.
+
+
+16. Detect DNS Service
+Command:
+nmap -p 53 8.8.8.8
+
+Explanation:
+Checks whether DNS service is running on the target.
+
+
+17. Detect SNMP Service
+Command:
+sudo nmap -sU -p 161 localhost
+
+Explanation:
+Performs UDP scan on SNMP port 161.
+
+
+18. Detect SMTP Servers
+Command:
+nmap -p 25,465,587 localhost
+
+Explanation:
+Scans SMTP-related ports to identify mail servers.
+
+
+19. Check Anonymous FTP Login
+Command:
+nmap -p 21 --script ftp-anon localhost
+
+Explanation:
+Uses NSE script to test anonymous FTP access.
+
+
+20. Detect Apache Vulnerabilities
+Command:
+nmap -p 80,443 --script http-vuln-* localhost
+
+Explanation:
+Runs HTTP vulnerability scripts on web server ports.
+
+
+21. Detect NFS Shares
+Command:
+nmap -p 111,2049 --script nfs-showmount localhost
+
+Explanation:
+Checks for exported NFS file shares.
+
+
+22. Detect MySQL Service
+Command:
+nmap -p 3306 localhost
+
+Explanation:
+Checks whether MySQL database service is running.
+
+
+23. Detect RPC Service
+Command:
+nmap -p 111 --script rpcinfo localhost
+
+Explanation:
+Queries RPC services registered on the target system.
+
+
+24. Detect VNC Ports
+Command:
+nmap -p 5900-5905 localhost
+
+Explanation:
+Scans VNC remote desktop ports.
+
+
+25. Detect SSH on Non-default Ports
+Command:
+nmap -p- -sV localhost | grep -i ssh
+
+Explanation:
+Performs full port scan and filters results containing SSH services.

@@ -1,0 +1,86 @@
+---------------------------------
+1. START SCAPY / PYTHON
+---------------------------------
+
+Option 1:
+sudo scapy
+
+Option 2:
+sudo python3
+
+Then import Scapy:
+from scapy.all import *
+
+---------------------------------
+2. ICMP PACKET (PING)
+---------------------------------
+
+packet = IP(dst="8.8.8.8")/ICMP()
+
+packet.show()
+
+reply = sr1(packet)
+
+reply.show()
+
+---------------------------------
+3. UDP PACKET
+---------------------------------
+
+packet = IP(dst="127.0.0.1")/UDP(dport=53)/"Hello"
+
+packet.show()
+
+send(packet)
+
+---------------------------------
+4. DNS QUERY REQUEST
+---------------------------------
+
+packet = IP(dst="8.8.8.8")/UDP(dport=53)/DNS(rd=1,qd=DNSQR(qname="google.com"))
+
+packet.show()
+
+response = sr1(packet)
+
+response.show()
+
+---------------------------------
+5. HTTP GET REQUEST
+---------------------------------
+
+packet = IP(dst="example.com")/TCP(dport=80, flags="S")
+
+sr1(packet)
+
+packet = IP(dst="example.com")/TCP(dport=80)/"GET / HTTP/1.1\r\nHost: example.com\r\n\r\n"
+
+packet.show()
+
+send(packet)
+
+---------------------------------
+6. TRACEROUTE
+---------------------------------
+
+traceroute(["8.8.8.8"])
+
+---------------------------------
+7. USEFUL SCAPY COMMANDS
+---------------------------------
+
+ls()
+
+packet.summary()
+
+sniff(count=10)
+
+wrpcap("file.pcap", packet)
+
+rdpcap("file.pcap")
+
+---------------------------------
+8. EXIT SCAPY / PYTHON
+---------------------------------
+
+exit()

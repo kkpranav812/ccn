@@ -1,0 +1,214 @@
+Experiment 1 – Networking Utilities
+
+Aim:
+To study basic networking commands in Linux.
+
+1. ping
+   Purpose:
+   Checks connectivity between two systems.
+
+Syntax:
+ping <host>
+
+Example:
+ping google.com
+
+Uses:
+
+* Check internet connection
+* Measure delay (RTT)
+* Detect packet loss
+
+Important Points:
+
+* Uses ICMP protocol
+* Ctrl + C stops ping
+* ttl = Time To Live
+
+---
+
+2. nslookup
+   Purpose:
+   Used for DNS lookup.
+
+Syntax:
+nslookup <host>
+
+Example:
+nslookup google.com
+
+Uses:
+
+* Converts domain name to IP address
+* Checks DNS working
+
+Important Points:
+
+* DNS uses port 53
+* Usually uses UDP
+
+---
+
+3. ifconfig
+   Purpose:
+   Displays network interface information.
+
+Syntax:
+ifconfig
+
+Example:
+ifconfig eth0
+
+Shows:
+
+* IP address
+* MAC address
+* RX/TX packets
+
+Important Points:
+
+* lo = loopback interface
+* eth0 = ethernet interface
+
+---
+
+4. netstat
+   Purpose:
+   Displays network connections and ports.
+
+Syntax:
+netstat
+
+Examples:
+netstat -t
+netstat -t -n -l
+
+Options:
+-t = TCP connections
+-n = numeric addresses
+-l = listening ports
+
+---
+
+5. traceroute
+   Purpose:
+   Shows path taken by packets.
+
+Syntax:
+traceroute <host>
+
+Example:
+traceroute google.com
+
+Uses:
+
+* Finds routers between source and destination
+* Detects delay in network
+
+Important Points:
+
+* Uses TTL field
+* Each router is called a hop
+
+---
+
+Wireshark Filters
+
+dns
+Shows DNS packets
+
+http
+Shows HTTP packets
+
+tls
+Shows HTTPS/TLS packets
+
+tcp.flags.syn == 1
+Shows TCP SYN packets
+
+===================================
+
+Experiment 2 – Chrome DevTools Network Analysis
+
+Aim:
+To analyze webpage performance and network behavior using Chrome DevTools.
+
+1. What is network throttling?
+   Network throttling limits internet speed and adds latency artificially.
+   It helps developers test websites under slow network conditions.
+
+2. Why is network throttling used?
+   It is used to check how a webpage behaves on slow mobile networks.
+   This helps improve website performance for all users.
+
+3. What is the use of the Network tab?
+   The Network tab shows all requests and responses between browser and server.
+   It helps analyze loading time, errors, and resource usage.
+
+4. What is Waterfall View?
+   Waterfall view shows the order and timing of resource loading.
+   It helps identify slow resources delaying page loading.
+
+5. What is the difference between Online and Offline mode?
+   Online mode allows internet access and resources load normally.
+   Offline mode blocks internet connection and requests fail.
+
+6. What happens in Fast 3G mode?
+   The webpage loads with moderate speed and lower latency.
+   It simulates a good mobile internet connection.
+
+7. What happens in Regular 3G mode?
+   Page loading becomes slower because bandwidth is reduced.
+   Some resources may take more time to load completely.
+
+8. What happens in Slow 3G mode?
+   The webpage loads very slowly due to high latency and low speed.
+   Large images and scripts take significant time to load.
+
+9. What is TTFB?
+   TTFB means Time To First Byte received from the server.
+   It measures server response speed and network delay.
+
+10. How does throttling affect TTFB?
+    Higher latency increases the delay before receiving first byte.
+    Therefore TTFB becomes larger in slow network conditions.
+
+11. What is DOMContentLoaded?
+    DOMContentLoaded occurs after HTML document is fully parsed.
+    It does not wait for images or videos to finish loading.
+
+12. What is Load Event?
+    Load event occurs after all webpage resources are loaded completely.
+    This includes images, CSS, JavaScript, and videos.
+
+13. What are common bottlenecks?
+    Large files, too many requests, and slow servers are bottlenecks.
+    They increase webpage loading time and reduce performance.
+
+14. What are 404 errors?
+    404 error means requested webpage or resource was not found.
+    This usually happens due to wrong URLs or missing files.
+
+15. What are 500 errors?
+    500 error indicates an internal server-side problem.
+    It occurs when server cannot process the request properly.
+
+16. Which resources usually load slowly?
+    Large images, videos, fonts, and JavaScript files load slowly.
+    These resources consume high bandwidth and increase delay.
+
+17. What is caching?
+    Caching stores webpage resources locally in browser memory.
+    It reduces downloading time during future visits.
+
+18. Does caching improve performance?
+    Yes, cached resources load much faster on repeated visits.
+    This reduces network traffic and improves user experience.
+
+19. What happens in Offline mode?
+    Browser cannot contact server because internet is unavailable.
+    Most webpage resources fail to load in this mode.
+
+20. Why is performance testing important?
+    Performance testing improves speed, responsiveness, and efficiency.
+    It helps provide better user experience on all devices.

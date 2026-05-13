@@ -1,0 +1,440 @@
+# Linux Firewall Configuration using iptables – Commands and Explanation
+
+Source file: 
+
+---
+
+## BASIC IPTABLES COMMANDS
+
+1. List all firewall rules
+   Command:
+   iptables -L
+
+Explanation:
+Displays all rules present in the default filter table. Shows INPUT, OUTPUT, and FORWARD chains along with their policies.
+
+---
+
+2. List rules with detailed information
+   Command:
+   iptables -L -v
+
+Explanation:
+Shows verbose output including:
+
+* Packet count
+* Byte count
+* Interfaces
+* Protocol details
+
+Useful for monitoring traffic matching each rule.
+
+---
+
+3. List only INPUT chain rules
+   Command:
+   iptables -v -L INPUT
+
+Explanation:
+Displays only INPUT chain rules in verbose mode. Useful for checking incoming packet filtering rules.
+
+---
+
+4. List rules in mangle table
+   Command:
+   iptables -L -t mangle
+
+Explanation:
+Displays rules in the mangle table, which is used for packet modification such as TOS, TTL, or checksum changes.
+
+---
+
+5. List rules in NAT table
+   Command:
+   iptables -L -t nat
+
+Explanation:
+Displays NAT (Network Address Translation) rules like MASQUERADE, SNAT, and DNAT.
+
+---
+
+6. Flush all rules
+   Command:
+   iptables -F
+
+OR
+
+iptables --flush
+
+Explanation:
+Deletes all rules from the current filter table and resets chains to empty.
+
+---
+
+7. Create a new custom chain
+   Command:
+   iptables -N mychain
+
+Explanation:
+Creates a user-defined chain named "mychain".
+
+---
+
+8. List rules inside custom chain
+   Command:
+   iptables -L mychain
+
+Explanation:
+Displays all rules inside the custom chain "mychain".
+
+---
+
+9. Delete a built-in chain (fails)
+   Command:
+   iptables -X INPUT
+
+Explanation:
+Attempts to delete INPUT chain but fails because INPUT is a built-in chain and cannot be removed.
+
+---
+
+10. Delete custom chain
+    Command:
+    iptables -X mychain
+
+Explanation:
+Deletes the user-defined chain "mychain".
+
+---
+
+## ICMP / PING FILTERING COMMANDS
+
+11. Test connectivity
+    Command:
+    ping -c 2 google.com
+
+Explanation:
+Sends 2 ICMP echo request packets to google.com to verify network connectivity.
+
+-c 2 means send only 2 packets.
+
+---
+
+12. Block all outgoing ICMP packets
+    Command:
+    iptables -A OUTPUT -p icmp -j DROP
+
+Explanation:
+Adds a rule to OUTPUT chain:
+
+* -A = Append rule
+* -p icmp = Match ICMP packets
+* -j DROP = Silently discard packets
+
+Result:
+Ping stops working.
+
+---
+
+13. View OUTPUT chain rules
+    Command:
+    iptables -L OUTPUT -v
+
+Explanation:
+Displays OUTPUT chain with verbose statistics such as matched packets and bytes.
+
+---
+
+14. Restore connectivity
+    Command:
+    iptables -F
+
+Explanation:
+Flushes all firewall rules, allowing ICMP traffic again.
+
+---
+
+15. Block ICMP packets from a specific IP
+    Command:
+    iptables -A INPUT -p icmp -s 10.10.62.200 -j DROP
+
+Explanation:
+Blocks ICMP packets coming from source IP 10.10.62.200.
+
+-s specifies source IP.
+
+---
+
+16. List rules with line numbers
+    Command:
+    iptables -L INPUT --line-numbers -v
+
+Explanation:
+Displays INPUT chain rules with numbering so specific rules can be deleted accurately.
+
+---
+
+17. Delete a specific rule
+    Command:
+    iptables -D INPUT 1
+
+Explanation:
+Deletes rule number 1 from INPUT chain.
+
+-D means delete rule.
+
+---
+
+## FTP FILTERING COMMANDS
+
+18. Start FTP server
+    Command:
+    sudo service vsftpd start
+
+OR
+
+sudo service vsftpd restart
+
+Explanation:
+Starts or restarts the vsftpd FTP server.
+
+---
+
+19. Block FTP traffic from specific IP
+    Command:
+    iptables -A INPUT -p tcp --dport 21 -s 10.10.62.200 -j DROP
+
+Explanation:
+Blocks TCP packets:
+
+* Destination port 21 (FTP)
+* Coming from source IP 10.10.62.200
+
+--dport specifies destination port.
+
+---
+
+20. Connect to FTP server
+    Command:
+    ftp 10.10.62.200
+
+Explanation:
+Attempts FTP connection to target host.
+
+Connection times out because firewall blocks port 21.
+
+---
+
+## HTTP FILTERING COMMANDS
+
+21. Block HTTP traffic
+    Command:
+    iptables -A INPUT -p tcp --dport 80 -s 10.10.62.200 -j DROP
+
+Explanation:
+Blocks HTTP traffic (port 80) from specified source IP.
+
+---
+
+22. Test HTTP connection
+    Command:
+    curl [http://10.10.62.200](http://10.10.62.200)
+
+Explanation:
+Attempts HTTP request to server.
+
+Fails because firewall silently drops packets.
+
+---
+
+## NAT AND PACKET FORWARDING COMMANDS
+
+23. Add MASQUERADE NAT rule
+    Command:
+    iptables -t nat -A POSTROUTING -o enp4s0 -j MASQUERADE
+
+Explanation:
+Enables Source NAT (SNAT):
+
+* Replaces private IP with router’s public IP
+* Used for internet sharing
+
+Options:
+
+* -t nat = Use NAT table
+* POSTROUTING = Apply after routing
+* -o enp4s0 = Outgoing interface
+* MASQUERADE = Dynamic source NAT
+
+---
+
+24. Enable IP forwarding temporarily
+    Command:
+    echo 1 > /proc/sys/net/ipv4/ip_forward
+
+Explanation:
+Enables kernel packet forwarding so Linux acts as a router.
+
+1 = enabled
+0 = disabled
+
+---
+
+25. Verify IP forwarding status
+    Command:
+    cat /proc/sys/net/ipv4/ip_forward
+
+Explanation:
+Displays whether IP forwarding is enabled.
+
+---
+
+26. Make IP forwarding permanent
+    Command:
+    nano /etc/sysctl.conf
+
+Add line:
+net.ipv4.ip_forward = 1
+
+Explanation:
+Ensures packet forwarding remains enabled after reboot.
+
+---
+
+27. Save iptables rules permanently
+    Command:
+    iptables-save > /etc/sysconfig/iptables
+
+Explanation:
+Saves current firewall rules to a file for persistence across reboots.
+
+---
+
+28. Verify NAT rules
+    Command:
+    iptables -t nat -L -v
+
+Explanation:
+Displays NAT table rules with verbose statistics.
+
+---
+
+## IMPORTANT IPTABLES OPTIONS
+
+-A
+Append rule to chain
+
+-D
+Delete rule
+
+-I
+Insert rule at specific position
+
+-L
+List rules
+
+-F
+Flush all rules
+
+-N
+Create new chain
+
+-X
+Delete custom chain
+
+-P
+Set default policy
+
+-t
+Specify table (filter/nat/mangle)
+
+-j
+Specify target action
+
+-p
+Specify protocol
+
+-s
+Specify source IP
+
+-d
+Specify destination IP
+
+--dport
+Specify destination port
+
+-i
+Input interface
+
+-o
+Output interface
+
+-v
+Verbose output
+
+--line-numbers
+Display rule numbers
+
+---
+
+## COMMON TARGETS
+
+ACCEPT
+Allows packet
+
+DROP
+Silently discards packet
+
+REJECT
+Rejects packet and sends error response
+
+MASQUERADE
+Performs NAT using outgoing interface IP
+
+RETURN
+Returns control to calling chain
+
+---
+
+## COMMON PORTS
+
+ICMP
+Used for ping
+
+FTP
+Port 21
+
+HTTP
+Port 80
+
+HTTPS
+Port 443
+
+---
+
+## IMPORTANT CONCEPTS
+
+1. INPUT Chain
+   Handles incoming packets to local machine.
+
+2. OUTPUT Chain
+   Handles packets generated locally.
+
+3. FORWARD Chain
+   Handles packets passing through machine.
+
+4. NAT
+   Changes source/destination IP addresses.
+
+5. MASQUERADE
+   Special NAT type for dynamic IP addresses.
+
+6. IP Forwarding
+   Allows Linux to route packets between interfaces.
+
+7. Packet Filtering
+   Firewall decides whether packets should be allowed or blocked.
+
+8. Rule Persistence
+   iptables rules disappear after reboot unless saved.
+
