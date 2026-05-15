@@ -1,0 +1,298 @@
+========================
+IP ADDRESSING COMMANDS
+========================
+
+ip addr
+ifconfig
+hostname
+hostname -I
+route -n
+ip route
+arp -a
+netstat -r
+ss -tulnp
+
+
+========================
+CONNECTIVITY COMMANDS
+========================
+
+ping google.com
+ping -c 4 google.com
+traceroute google.com
+tracepath google.com
+nslookup google.com
+dig google.com
+host google.com
+
+
+========================
+NMAP INSTALLATION
+========================
+
+sudo apt-get update
+sudo apt-get install nmap
+
+
+========================
+HOST DISCOVERY
+========================
+
+nmap -sn google.com
+nmap -sn localhost
+nmap -sn 172.22.16.0/20
+nmap -sn 192.168.1.0/24
+nmap -Pn google.com
+
+
+========================
+TCP SCANNING
+========================
+
+sudo nmap -sS localhost
+sudo nmap -sS 172.22.28.0/24
+sudo nmap -sT localhost
+sudo nmap -sA localhost
+sudo nmap -sN localhost
+sudo nmap -sF localhost
+sudo nmap -sX localhost
+
+
+========================
+UDP SCANNING
+========================
+
+sudo nmap -sU localhost
+sudo nmap -sU -p 161 localhost
+sudo nmap -sU -p 53 8.8.8.8
+
+
+========================
+PORT SCANNING
+========================
+
+nmap -p 21 localhost
+nmap -p 22 localhost
+nmap -p 23 localhost
+nmap -p 25 localhost
+nmap -p 53 8.8.8.8
+nmap -p 80,443 google.com
+nmap -p 111 localhost
+nmap -p 161 localhost
+nmap -p 3389 localhost
+nmap -p 3306 localhost
+nmap -p 5900-5905 localhost
+nmap -p 1433,3306,5432 localhost
+nmap -p- localhost
+nmap --top-ports 5 google.com
+nmap -F localhost
+
+
+========================
+SERVICE DETECTION
+========================
+
+nmap -sV localhost
+nmap -p 22 -sV localhost
+nmap -p- -sV localhost
+nmap -A localhost
+
+
+========================
+OPERATING SYSTEM DETECTION
+========================
+
+sudo nmap -O localhost
+sudo nmap -A localhost
+
+
+========================
+NSE SCRIPT SCANNING
+========================
+
+nmap --script vuln localhost
+nmap -p 21 --script ftp-anon localhost
+nmap -p 80,443 --script http-vuln-* localhost
+nmap -p 111 --script rpcinfo localhost
+nmap -p 111,2049 --script nfs-showmount localhost
+nmap --script smb-os-discovery localhost
+nmap --script default localhost
+
+
+========================
+FTP COMMANDS
+========================
+
+ftp localhost
+nmap -p 21 localhost
+nmap -p 21 --script ftp-anon localhost
+
+
+========================
+SSH COMMANDS
+========================
+
+ssh localhost
+nmap -p 22 -sV localhost
+nmap -p- -sV localhost | grep -i ssh
+
+
+========================
+TELNET COMMANDS
+========================
+
+telnet localhost
+nmap -p 23 --open 172.22.28.0/24
+
+
+========================
+DNS COMMANDS
+========================
+
+nslookup google.com
+dig google.com
+host google.com
+nmap -p 53 8.8.8.8
+sudo nmap -sU -p 53 8.8.8.8
+
+
+========================
+SMTP COMMANDS
+========================
+
+nmap -p 25,465,587 localhost
+
+
+========================
+SNMP COMMANDS
+========================
+
+sudo nmap -sU -p 161 localhost
+getent services | grep snmp
+
+
+========================
+RPC/NFS COMMANDS
+========================
+
+nmap -p 111 --script rpcinfo localhost
+nmap -p 111,2049 --script nfs-showmount localhost
+
+
+========================
+DATABASE SCANNING
+========================
+
+nmap -p 3306 localhost
+nmap -p 5432 localhost
+nmap -p 1433 localhost
+nmap -p 1433,3306,5432 localhost
+
+
+========================
+RDP/VNC SCANNING
+========================
+
+nmap -p 3389 localhost
+nmap -p 5900-5905 localhost
+
+
+========================
+OUTPUT SAVING
+========================
+
+nmap localhost -oN output.txt
+nmap localhost -oX output.xml
+nmap localhost -oG output.gnmap
+nmap localhost -oA scanresult
+
+
+========================
+VERBOSE/DEBUGGING
+========================
+
+nmap -v localhost
+nmap -vv localhost
+nmap -d localhost
+
+
+========================
+FIREWALL COMMANDS
+========================
+
+sudo iptables -L
+sudo ufw status
+sudo ufw enable
+sudo ufw disable
+
+
+========================
+GETENT COMMANDS
+========================
+
+getent services
+getent services | grep udp
+getent services | grep tcp
+getent services | grep ssh
+getent services | grep snmp
+getent services | grep ftp
+getent services | grep http
+getent services | grep domain
+
+
+========================
+LINUX FILE/TEXT COMMANDS
+========================
+
+grep keyword file.txt
+cat file.txt
+less file.txt
+more file.txt
+head file.txt
+tail file.txt
+find / -name filename
+locate filename
+
+
+========================
+PROCESS/MONITORING COMMANDS
+========================
+
+ps aux
+top
+htop
+free -h
+df -h
+uname -a
+whoami
+sudo su
+
+
+========================
+SCAPY / PACKET COMMANDS
+========================
+
+python3
+from scapy.all import *
+sr(IP(dst="google.com")/ICMP())
+traceroute("google.com")
+
+
+========================
+NETSTAT/PORT COMMANDS
+========================
+
+netstat -tulnp
+ss -tulnp
+lsof -i
+sudo lsof -i :80
+
+
+========================
+MAC/SUBNET COMMANDS
+========================
+
+ip addr
+ifconfig
+arp -a
+ip route
