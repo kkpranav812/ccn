@@ -1,0 +1,494 @@
+========================
+BASIC NETWORK COMMANDS
+========================
+
+1. Show IP Address
+Command:
+ip addr
+
+Explanation:
+Displays all network interfaces, IP addresses, MAC addresses, and subnet details.
+
+
+2. Show Old Style Network Info
+Command:
+ifconfig
+
+Explanation:
+Displays network interface configuration.
+
+
+3. Show Routing Table
+Command:
+route -n
+
+Explanation:
+Displays routing table with gateway information.
+
+
+4. Check Connectivity
+Command:
+ping google.com
+
+Explanation:
+Sends ICMP packets to test connectivity.
+
+
+5. Trace Packet Path
+Command:
+traceroute google.com
+
+Explanation:
+Shows path packets take to reach destination.
+
+
+6. DNS Lookup
+Command:
+nslookup google.com
+
+Explanation:
+Finds IP address of domain using DNS.
+
+
+7. Show Open Ports
+Command:
+netstat -tulnp
+
+Explanation:
+Displays listening ports and associated services.
+
+
+8. Display ARP Table
+Command:
+arp -a
+
+Explanation:
+Shows IP-to-MAC address mappings.
+
+
+9. Show Hostname
+Command:
+hostname
+
+Explanation:
+Displays system hostname.
+
+
+10. Show Detailed Network Statistics
+Command:
+ss -tulnp
+
+Explanation:
+Displays socket statistics and open ports.
+
+
+========================
+NMAP COMMANDS
+========================
+
+11. Install Nmap
+Command:
+sudo apt-get update && sudo apt-get install nmap
+
+Explanation:
+Installs Nmap network scanning tool.
+
+
+12. Ping Scan
+Command:
+nmap -sn google.com
+
+Explanation:
+Checks whether host is alive without scanning ports.
+
+
+13. Scan Active Hosts
+Command:
+nmap -sn 172.22.16.0/20
+
+Explanation:
+Finds all live hosts in subnet.
+
+
+14. TCP SYN Scan
+Command:
+sudo nmap -sS 172.22.28.0/24
+
+Explanation:
+Performs stealth TCP SYN port scan.
+
+
+15. Service Version Detection
+Command:
+nmap -sV localhost
+
+Explanation:
+Detects running services and versions.
+
+
+16. Operating System Detection
+Command:
+sudo nmap -O localhost
+
+Explanation:
+Detects operating system using fingerprinting.
+
+
+17. Aggressive Scan
+Command:
+sudo nmap -A localhost
+
+Explanation:
+Performs OS detection, version detection, NSE scripts, and traceroute.
+
+
+18. Fast Scan
+Command:
+nmap -F localhost
+
+Explanation:
+Scans fewer common ports for faster results.
+
+
+19. Full Port Scan
+Command:
+nmap -p- localhost
+
+Explanation:
+Scans all 65535 TCP ports.
+
+
+20. Scan Specific Ports
+Command:
+nmap -p 80,443 google.com
+
+Explanation:
+Scans HTTP and HTTPS ports.
+
+
+21. Scan FTP Port
+Command:
+nmap -p 21 localhost
+
+Explanation:
+Checks FTP service.
+
+
+22. Scan SSH Version
+Command:
+nmap -p 22 -sV localhost
+
+Explanation:
+Detects SSH service version.
+
+
+23. Scan Telnet Hosts
+Command:
+nmap -p 23 --open 172.22.28.0/24
+
+Explanation:
+Lists hosts with Telnet enabled.
+
+
+24. Scan Database Ports
+Command:
+nmap -p 1433,3306,5432 localhost
+
+Explanation:
+Checks MS SQL, MySQL, PostgreSQL services.
+
+
+25. Scan RDP Port
+Command:
+nmap -p 3389 localhost
+
+Explanation:
+Checks Remote Desktop service.
+
+
+26. Scan DNS Service
+Command:
+nmap -p 53 8.8.8.8
+
+Explanation:
+Checks DNS service.
+
+
+27. UDP Scan
+Command:
+sudo nmap -sU localhost
+
+Explanation:
+Scans UDP ports.
+
+
+28. Scan SNMP Port
+Command:
+sudo nmap -sU -p 161 localhost
+
+Explanation:
+Checks SNMP service.
+
+
+29. Scan SMTP Ports
+Command:
+nmap -p 25,465,587 localhost
+
+Explanation:
+Checks mail server ports.
+
+
+30. FTP Anonymous Login Test
+Command:
+nmap -p 21 --script ftp-anon localhost
+
+Explanation:
+Tests anonymous FTP access.
+
+
+31. HTTP Vulnerability Scan
+Command:
+nmap -p 80,443 --script http-vuln-* localhost
+
+Explanation:
+Runs web vulnerability scripts.
+
+
+32. Detect NFS Shares
+Command:
+nmap -p 111,2049 --script nfs-showmount localhost
+
+Explanation:
+Checks exported NFS shares.
+
+
+33. Detect MySQL Service
+Command:
+nmap -p 3306 localhost
+
+Explanation:
+Checks MySQL server.
+
+
+34. Detect RPC Services
+Command:
+nmap -p 111 --script rpcinfo localhost
+
+Explanation:
+Lists RPC services.
+
+
+35. Detect VNC Ports
+Command:
+nmap -p 5900-5905 localhost
+
+Explanation:
+Checks VNC remote desktop ports.
+
+
+36. Find SSH on Non-default Ports
+Command:
+nmap -p- -sV localhost | grep -i ssh
+
+Explanation:
+Finds SSH services running on any port.
+
+
+37. Save Output to File
+Command:
+nmap localhost -oN output.txt
+
+Explanation:
+Saves scan result in text file.
+
+
+38. XML Output
+Command:
+nmap localhost -oX output.xml
+
+Explanation:
+Saves output in XML format.
+
+
+39. Grepable Output
+Command:
+nmap localhost -oG output.gnmap
+
+Explanation:
+Saves grep-friendly output.
+
+
+40. Verbose Scan
+Command:
+nmap -v localhost
+
+Explanation:
+Displays detailed scanning progress.
+
+
+========================
+GETENT COMMANDS
+========================
+
+41. Show All Services
+Command:
+getent services
+
+Explanation:
+Displays all service-port mappings.
+
+
+42. Show UDP Services
+Command:
+getent services | grep udp
+
+Explanation:
+Displays UDP services only.
+
+
+43. Show SNMP Services
+Command:
+getent services | grep snmp
+
+Explanation:
+Displays SNMP service entries.
+
+
+44. Show SSH Services
+Command:
+getent services | grep ssh
+
+Explanation:
+Displays SSH service entries.
+
+
+45. Show HTTP Services
+Command:
+getent services | grep http
+
+Explanation:
+Displays HTTP and HTTPS entries.
+
+
+46. Show FTP Services
+Command:
+getent services | grep ftp
+
+Explanation:
+Displays FTP-related entries.
+
+
+47. Show DNS Services
+Command:
+getent services | grep domain
+
+Explanation:
+Displays DNS-related entries.
+
+
+========================
+LINUX SEARCH COMMANDS
+========================
+
+48. grep
+Command:
+grep keyword file.txt
+
+Explanation:
+Searches matching text.
+
+
+49. Pipe Operator
+Command:
+command1 | command2
+
+Explanation:
+Passes output of first command to second command.
+
+
+50. Find Files
+Command:
+find / -name filename
+
+Explanation:
+Searches files in system.
+
+
+51. Locate Files
+Command:
+locate filename
+
+Explanation:
+Quickly searches indexed files.
+
+
+52. View File Content
+Command:
+cat file.txt
+
+Explanation:
+Displays entire file content.
+
+
+53. View File Page-wise
+Command:
+less file.txt
+
+Explanation:
+Opens file for scrolling.
+
+
+54. Show Running Processes
+Command:
+ps aux
+
+Explanation:
+Displays running processes.
+
+
+55. Real-time Process Monitor
+Command:
+top
+
+Explanation:
+Shows CPU/memory usage live.
+
+
+56. Disk Usage
+Command:
+df -h
+
+Explanation:
+Displays disk space usage.
+
+
+57. Memory Usage
+Command:
+free -h
+
+Explanation:
+Displays RAM usage.
+
+
+58. System Information
+Command:
+uname -a
+
+Explanation:
+Displays kernel and system details.
+
+
+59. Current Logged-in User
+Command:
+whoami
+
+Explanation:
+Displays current username.
+
+
+60. Superuser Shell
+Command:
+sudo su
+
+Explanation:
+Switches to root shell.
